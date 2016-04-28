@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBanking", "EBanking\EBanking.csproj", "{7C8F2601-EF20-472E-B4B0-354237BAD0B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBanking.Data", "EBanking.Data\EBanking.Data.csproj", "{3542EA7E-26E3-4D9D-AD12-4009169A4DA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBanking.Service", "EBanking.Service\EBanking.Service.csproj", "{EB3DE0B7-2428-4631-9E59-74D627564325}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C8F2601-EF20-472E-B4B0-354237BAD0B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C8F2601-EF20-472E-B4B0-354237BAD0B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C8F2601-EF20-472E-B4B0-354237BAD0B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C8F2601-EF20-472E-B4B0-354237BAD0B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3542EA7E-26E3-4D9D-AD12-4009169A4DA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3542EA7E-26E3-4D9D-AD12-4009169A4DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3542EA7E-26E3-4D9D-AD12-4009169A4DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3542EA7E-26E3-4D9D-AD12-4009169A4DA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB3DE0B7-2428-4631-9E59-74D627564325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB3DE0B7-2428-4631-9E59-74D627564325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB3DE0B7-2428-4631-9E59-74D627564325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB3DE0B7-2428-4631-9E59-74D627564325}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
