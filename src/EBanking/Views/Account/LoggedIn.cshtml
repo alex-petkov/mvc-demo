@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "LoggedIn";
+}
+
+@if (Request.IsAuthenticated)
+{ 
+    <h4>Hello @User.Identity.Name</h4>
+}
+
