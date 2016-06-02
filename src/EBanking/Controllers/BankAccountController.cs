@@ -75,40 +75,50 @@ namespace Bank.Controllers
             {
                 using (var db = new OurDbContext())
                 {
-                    var account = db.UserAccounts.FirstOrDefault(a => a.FriendlyName == transfer.MyBankAccount);
+                    var account = db.UserAccounts
+                        .FirstOrDefault(a => a.FriendlyName == transfer.MyBankAccount &&
+                                             a.User.UserName == User.Identity.Name);
+
                     if (account == null)
-                    {
                         return RedirectToAction("Error");
+                    
+                    var account1 = db.UserAccounts
+                        .FirstOrDefault(a => a.FriendlyName == transfer.OtherBankAccount);
 
-                    }
-
-                    var usr = db.User.FirstOrDefault(u => u.UserName == User.Identity.Name);
-                    if (usr.Id != account.UserId)
-                    {
-                        return RedirectToAction("Error");
-
-                    }
-
-
-                    var account1 = db.UserAccounts.FirstOrDefault(a => a.FriendlyName == transfer.OtherBankAccount);
                     if (account1 == null)
                     {
                         return RedirectToAction("Error");
 
                     }
 
+                    var transactionKey = Guid.NewGuid();
+
                     var transaction = new Transaction
                     {
                         UserAccountId = account.Id,
-                        Key = Guid.NewGuid(),
-                        Type = TransactionType.Transfer,
+                        Key = transactionKey,
+                        Type = TransactionType.Withdrawal,
                         EvenDate = DateTime.Now,
                         Amount = transfer.Balance
                     };
+
+
+                    var transaction2 = new Transaction
+                    {
+                        UserAccountId = account1.Id,
+                        Key = transactionKey,
+                        Type = TransactionType.Deposit,
+                        EvenDate = DateTime.Now,
+                        Amount = transfer.Balance
+                    };
+
+
                     db.Transactions.Add(transaction);
-                    
+                    db.Transactions.Add(transaction2);
+
                     account.Balance = account.Balance - transaction.Amount;
                     account1.Balance = account1.Balance + transaction.Amount;
+
                     db.SaveChanges();
                  
                 }
@@ -159,7 +169,7 @@ namespace Bank.Controllers
                     db.Transactions.Add(transaction);
                     if (transaction.Amount < 0)
                     {
-                        ViewBag.Message = "Грешка! Не може сумата която искате да внесете да е отрицателна.";
+                        ModelState.AddModelError(string.Empty,"Грешка! Не може сумата която искате да внесете да е отрицателна.");
                         
                         return View();
                     }

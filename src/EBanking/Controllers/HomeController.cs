@@ -4,10 +4,11 @@ namespace Bank.Controllers
 {
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
         public ActionResult Index()
         {
+            if (Request.IsAuthenticated)
+                return RedirectToAction("Index", "BankAccount");
+
             return View();
         }
 	}

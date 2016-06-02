@@ -19,7 +19,6 @@ namespace EBanking.Data
     public enum TransactionType
     {
         Withdrawal = 1,
-        Deposit,
-        Transfer
+        Deposit
     }
 }
