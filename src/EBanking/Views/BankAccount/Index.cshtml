@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Bank.Models.ShowBankAccount>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<table style="width: 100%">
+    <tr>
+        <th>Име на сметката</th>
+        <th>IBAN</th>
+        <th>Баланс</th>
+    </tr>
+
+    @{
+        foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.FriendlyName) </td>
+                <td>@Html.DisplayFor(modelItem => item.Key)</td>
+                <td>@Html.DisplayFor(modelItem => item.Balance) </td>
+            </tr>
+
+        }
+    }
+</table>
+
+<div>
+    <a href="@Url.Action("LoggedIn", "Account")"> Към профила</a>
+    <a href="@Url.Action("CreateBankAccount", "BankAccount")">Създай нова банкова сметка</a> 
+     
+     
+</div>
+
+
+<ul>
+    <li><a href="@Url.Action("Deposit", "BankAccount")">Депозит към сметка </a> </li>
+    <li><a href="@Url.Action("Transfer", "BankAccount")">Превод към друга сметка </a> </li>
+    <li><a href="@Url.Action("WithDrawAl","BankAccount")">Теглене от сметка </a></li>
+   
+</ul>
+

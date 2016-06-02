@@ -49,8 +49,14 @@ namespace Bank.Controllers
                     db.SaveChanges();
                 }
                 ModelState.Clear();
-                ViewBag.Message = account.FullName + "  successfully registered";
+                //ViewBag.Message = account.FullName + "  successfully registered";
+                return RedirectToAction("RegisterSuccessfully");
             }
+            return View();
+        }
+
+        public ActionResult RegisterSuccessfully()
+        {
             return View();
         }
 
@@ -72,7 +78,7 @@ namespace Bank.Controllers
 
             using (var db = new OurDbContext())
             {
-                var usr = db.User.Where(u=>u.UserName==user.UserName).FirstOrDefault();
+                var usr = db.User.FirstOrDefault(u => u.UserName==user.UserName);
                 var result = usr != null && PasswordUncode.Verify(user.Password,usr.Password);
               
                 if (result)
@@ -99,5 +105,6 @@ namespace Bank.Controllers
 
             return RedirectToAction("Login", "Account");
         }
+
     }
 }

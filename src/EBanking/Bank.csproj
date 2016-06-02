@@ -134,12 +134,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BankAccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Library\PasswordUncode.cs" />
+    <Compile Include="Models\CreateBankAccount.cs" />
+    <Compile Include="Models\DepositModel.cs" />
+    <Compile Include="Models\ShowBankAccount.cs" />
+    <Compile Include="Models\TransferModel.cs" />
     <Compile Include="Models\UserAccount.cs" />
+    <Compile Include="Models\WithdrawalModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +198,18 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Logout.cshtml" />
+    <Content Include="Views\BankAccount\CreateBankAccount.cshtml" />
+    <Content Include="Views\BankAccount\CreatedSuccessfully.cshtml" />
+    <Content Include="Views\BankAccount\Index.cshtml" />
+    <Content Include="Views\Account\RegisterSuccessfully.cshtml" />
+    <Content Include="Views\BankAccount\TransferSuccessfully.cshtml" />
+    <Content Include="Views\BankAccount\DepositSuccessfully.cshtml" />
+    <Content Include="Views\BankAccount\WithDrawAlSuccessfully.cshtml" />
+    <Content Include="Views\BankAccount\Deposit.cshtml" />
+    <Content Include="Views\BankAccount\Error.cshtml" />
+    <Content Include="Views\BankAccount\Transfer.cshtml" />
+    <Content Include="Views\BankAccount\WithDrawAl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EBanking.Data\EBanking.Data.csproj">

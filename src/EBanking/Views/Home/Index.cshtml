@@ -3,9 +3,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h4>Добре дошли в нашият сайт.
+<p>Можете да си откриете банкова сметка като се регистрирате или да влезете във вашия профил ако имате такъв.</p></h4>
 
-<p>
-    @Html.ActionLink("Registration","Register")
-</p>
+
+<a href="@Url.Action("Register", "Account")">Registration</a>
+<a href="@Url.Action("Login","Account")">Login</a>
 

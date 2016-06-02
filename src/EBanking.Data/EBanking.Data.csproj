@@ -55,10 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BankAccount.cs" />
     <Compile Include="DataBaseUserModel.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OurDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
