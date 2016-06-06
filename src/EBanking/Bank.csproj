@@ -140,6 +140,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Library\PasswordUncode.cs" />
+    <Compile Include="Models\AccountCheck.cs" />
     <Compile Include="Models\CreateBankAccount.cs" />
     <Compile Include="Models\DepositModel.cs" />
     <Compile Include="Models\ShowBankAccount.cs" />
@@ -210,6 +211,7 @@
     <Content Include="Views\BankAccount\Error.cshtml" />
     <Content Include="Views\BankAccount\Transfer.cshtml" />
     <Content Include="Views\BankAccount\WithDrawAl.cshtml" />
+    <Content Include="Views\BankAccount\Options.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EBanking.Data\EBanking.Data.csproj">

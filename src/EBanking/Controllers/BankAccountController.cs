@@ -99,7 +99,8 @@ namespace Bank.Controllers
                         Key = transactionKey,
                         Type = TransactionType.Withdrawal,
                         EvenDate = DateTime.Now,
-                        Amount = transfer.Balance
+                        Amount = transfer.Balance,
+                        
                     };
 
 
@@ -109,13 +110,28 @@ namespace Bank.Controllers
                         Key = transactionKey,
                         Type = TransactionType.Deposit,
                         EvenDate = DateTime.Now,
-                        Amount = transfer.Balance
+                        Amount = transfer.Balance,
+                        Comment = "Направен е превод от банкова сметка " + account.FriendlyName + " към банкова сметка " + account1.FriendlyName + " на стойност от " + transfer.Balance + " лв."
+
+                      
                     };
 
 
                     db.Transactions.Add(transaction);
                     db.Transactions.Add(transaction2);
 
+                    if (transaction.Amount < 0)
+                    {
+                        ModelState.AddModelError(string.Empty, "Грешка! Не може сумата която искате да внесете да е отрицателна.");
+
+                        return View();
+                    }
+
+                    if (account.Balance < transfer.Balance)
+                    {
+                        ModelState.AddModelError(string.Empty, "Грешка! Нямате достатъчно пари за да направите превод. Вашата сума пари е " + account.Balance + " лв." );
+                        return View();
+                    }
                     account.Balance = account.Balance - transaction.Amount;
                     account1.Balance = account1.Balance + transaction.Amount;
 
@@ -164,7 +180,8 @@ namespace Bank.Controllers
                         Key = Guid.NewGuid(),
                         Type = TransactionType.Deposit,
                         EvenDate = DateTime.Now,
-                        Amount = deposit.Balance
+                        Amount = deposit.Balance,
+                        Comment = "Направен е депозит към банкова сметка " + account.FriendlyName + " на стойност от " + deposit.Balance + " лв."
                     };
                     db.Transactions.Add(transaction);
                     if (transaction.Amount < 0)
@@ -221,9 +238,24 @@ namespace Bank.Controllers
                         Key = Guid.NewGuid(),
                         Type = TransactionType.Withdrawal,
                         EvenDate = DateTime.Now,
-                        Amount = withdrawal.Balance
+                        Amount = withdrawal.Balance,
+                        Comment = "Направено е теглене от банкова сметка " + account.FriendlyName + " на стойност от " + withdrawal.Balance + " лв."
                     };
                     db.Transactions.Add(transaction);
+                    if (transaction.Amount < 0)
+                    {
+                        ModelState.AddModelError(string.Empty, "Грешка! Не може сумата която искате да изтеглите да е отрицателна.");
+
+                        return View();
+                    }
+
+
+                    if (account.Balance < withdrawal.Balance)
+                    {
+                        ModelState.AddModelError(string.Empty, "Грешка! Нямате достатъчно пари, за да направите теглене. Вашата сума пари е " + account.Balance + " лв.");
+                        return View();
+                    }
+
                     account.Balance = account.Balance - transaction.Amount;
                     db.SaveChanges();
                   
@@ -239,7 +271,34 @@ namespace Bank.Controllers
             return View();
         }
 
+        public ActionResult AccountCheck()
+        {
+            return View();
+        }
+
+        [HttpPost]
+
+        public ActionResult AccountCheck(AccountCheck check)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var db = new OurDbContext())
+                {
+                    var account = db.UserAccounts.FirstOrDefault(a => a.FriendlyName == check.MyBankAccount &&
+                                                                 a.User.UserName==User.Identity.Name);
+                    if (account == null)
+                        return RedirectToAction("Error");
+                }
+            }
+            return View();
+        }
+
         public ActionResult Error()
+        {
+            return View();
+        }
+
+        public ActionResult Options()
         {
             return View();
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Cache;
 using System.Web.Mvc;
 using System.Web.Security;
 using Bank.Library;
@@ -95,7 +96,18 @@ namespace Bank.Controllers
         [Authorize]
         public ActionResult LoggedIn()
         {
-                return View();
+            using (var db = new OurDbContext())
+            {
+                var bankAccounts = db.UserAccounts.Where(u => u.User.UserName == User.Identity.Name)
+                    .Select(ua => new ShowBankAccount
+                    {
+                        Key = ua.Key,
+                        FriendlyName = ua.FriendlyName,
+                        Balance = ua.Balance
+                    }).ToList();
+
+                return View(bankAccounts);
+            }
         }
 
         [Authorize]
@@ -104,6 +116,8 @@ namespace Bank.Controllers
             FormsAuthentication.SignOut();
 
             return RedirectToAction("Login", "Account");
+
+            
         }
 
     }

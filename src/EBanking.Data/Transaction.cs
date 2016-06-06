@@ -14,6 +14,7 @@ namespace EBanking.Data
         public TransactionType Type { get; set; }
         public DateTime EvenDate { get; set; }
         public decimal Amount { get; set; }
+        public string Comment { get; set; }
     }
 
     public enum TransactionType

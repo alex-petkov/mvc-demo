@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Bank.Models.ShowBankAccount>
-
 @{
     ViewBag.Title = "Index";
 }
@@ -26,17 +25,10 @@
 </table>
 
 <div>
-    <a href="@Url.Action("LoggedIn", "Account")"> Към профила</a>
     <a href="@Url.Action("CreateBankAccount", "BankAccount")">Създай нова банкова сметка</a> 
      
-     
+    <a href="@Url.Action("Options","BankAccount")">Опции</a>
 </div>
 
 
-<ul>
-    <li><a href="@Url.Action("Deposit", "BankAccount")">Депозит към сметка </a> </li>
-    <li><a href="@Url.Action("Transfer", "BankAccount")">Превод към друга сметка </a> </li>
-    <li><a href="@Url.Action("WithDrawAl","BankAccount")">Теглене от сметка </a></li>
-   
-</ul>
-
+    
