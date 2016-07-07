@@ -33,20 +33,20 @@ namespace EBanking.Service
 
         protected void Interest(object state)
         {
-            using (var db = new OurDbContext())
-            {
-                var usr = db.UserAccounts.Where(x=>x.Balance>=0).ToList();
-                foreach (var item in usr)
-                {
-                    item.Balance = item.Balance + 1;
-                }
-
-            }
-
+            Work();
         }
         protected override void OnStop()
         {
             _timer.Dispose();
+        }
+
+        public static void Work()
+        {
+            using (var db = new OurDbContext())
+            {
+                db.ApplyInterest(0.01m);
+
+            }
         }
     }
 }

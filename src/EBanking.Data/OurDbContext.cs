@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using EBanking.Data.Migrations;
+using Npgsql;
 
 namespace EBanking.Data
 {
@@ -18,5 +19,11 @@ namespace EBanking.Data
 
         }
 
+        public void ApplyInterest(decimal rate)
+        {
+            Database.ExecuteSqlCommand("Select dbo.\"ApplyInterest\"(@rate,@type)", 
+                new NpgsqlParameter("@rate", rate), 
+                new NpgsqlParameter("@type", (int)TransactionType.Deposit));
+        }
     }
 }

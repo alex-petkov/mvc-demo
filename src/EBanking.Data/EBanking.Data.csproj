@@ -56,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BankAccount.cs" />
+    <EmbeddedResource Include="Seed-2.txt" />
+    <EmbeddedResource Include="Seed-1.txt" />
     <Compile Include="DataBaseUserModel.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OurDbContext.cs" />

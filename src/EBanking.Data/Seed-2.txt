@@ -1,0 +1,16 @@
+﻿CREATE OR REPLACE FUNCTION dbo."ApplyInterest"(rate numeric, transactionType int)
+  RETURNS void AS
+$BODY$
+BEGIN
+	INSERT INTO dbo."Transactions"("UserAccountId", "Key", "Type",
+				   "EvenDate", "Amount", "Comment")
+	SELECT "Id", uuid_generate_v4(), transactionType,
+	       CURRENT_TIMESTAMP, rate*"Balance",
+	       'Олихвяване с ' || rate*"Balance" || ' лв.'
+	FROM dbo."BankAccounts" FOR UPDATE;
+
+	UPDATE dbo."BankAccounts" SET "Balance" = (1+rate)*"Balance";
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;

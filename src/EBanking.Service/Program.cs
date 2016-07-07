@@ -12,14 +12,24 @@ namespace EBanking.Service
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+        static void Main(string[] args)
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-            { 
-                new Service1() 
-            };
-            ServiceBase.Run(ServicesToRun);
+            var command = (String.Concat(args) ?? string.Empty).Trim();
+
+            if (command == "-noservice")
+            {
+                Service1.Work();
+            }
+            else
+            {
+                
+                ServiceBase[] ServicesToRun;
+                ServicesToRun = new ServiceBase[] 
+                { 
+                    new Service1() 
+                };
+                ServiceBase.Run(ServicesToRun);
+            }
         }
     }
 }
