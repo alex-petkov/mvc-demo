@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Bank.Models.TransactionCheck>
+@{
+    ViewBag.Title = "TransactionsCheck";
+}
+
+<h2>TransactionsCheck</h2>
+
+<table style="width: 100%">
+    <tr>
+        <th>Транзакции</th>
+        <th>Дата на извършената транзакция</th>
+    </tr>
+
+    @{
+        foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Comment) </td>
+                <td>@Html.DisplayFor(modelItem => item.Date)</td>
+            </tr>
+
+        }
+    }
+    </table>

@@ -6,9 +6,17 @@ using System.Web;
 
 namespace Bank.Models
 {
-    public class AccountCheck
+    public class TransactionCheck
     {
         [Required(ErrorMessage = "Моля попълнете вашата банкова сметка тук.")]
-        public string MyBankAccount { get; set; }
+        public string Comment { get; set; }
+
+        public DateTime Date { get; set; }
+
+
+
+
+
+        
     }
 }

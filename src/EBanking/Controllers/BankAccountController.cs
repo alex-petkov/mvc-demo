@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.ServiceModel.Syndication;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Bank.Models;
@@ -23,7 +24,6 @@ namespace Bank.Controllers
                         FriendlyName = ua.FriendlyName,
                         Balance = ua.Balance
                     }).ToList();
-
                 return View(bankAccounts);
             }
         }
@@ -76,14 +76,14 @@ namespace Bank.Controllers
                 using (var db = new OurDbContext())
                 {
                     var account = db.UserAccounts
-                        .FirstOrDefault(a => a.FriendlyName == transfer.MyBankAccount &&
+                        .FirstOrDefault(a => a.FriendlyName==transfer.MyBankAccount &&
                                              a.User.UserName == User.Identity.Name);
 
                     if (account == null)
                         return RedirectToAction("Error");
                     
                     var account1 = db.UserAccounts
-                        .FirstOrDefault(a => a.FriendlyName == transfer.OtherBankAccount);
+                        .FirstOrDefault(a => a.Key == transfer.OtherBankAccountIBAN);
 
                     if (account1 == null)
                     {
@@ -111,7 +111,7 @@ namespace Bank.Controllers
                         Type = TransactionType.Deposit,
                         EvenDate = DateTime.Now,
                         Amount = transfer.Balance,
-                        Comment = "Направен е превод от банкова сметка " + account.FriendlyName + " към банкова сметка " + account1.FriendlyName + " на стойност от " + transfer.Balance + " лв."
+                        Comment = "Направен е превод от банкова сметка " + account.FriendlyName + " към банкова сметка с IBAN " + account1.Key + " на стойност от " + transfer.Balance + " лв."
 
                       
                     };
@@ -161,18 +161,12 @@ namespace Bank.Controllers
             {
                 using (var db = new OurDbContext())
                 {
-                    var account = db.UserAccounts.FirstOrDefault(a => a.FriendlyName == deposit.MyBankAccount);
+                    var account = db.UserAccounts.FirstOrDefault(a => a.FriendlyName==deposit.MyBankAccount && 
+                                                                      a.User.UserName==User.Identity.Name);
                     if (account == null)
                     {
                         return RedirectToAction("Error");
                     }
-
-                    var usr = db.User.FirstOrDefault(u => u.UserName == User.Identity.Name);
-                    if (usr.Id != account.UserId)
-                    {
-                         return RedirectToAction("Error");
-                    }
-
 
                     var transaction = new Transaction
                     {
@@ -217,20 +211,13 @@ namespace Bank.Controllers
             {
                 using (var db = new OurDbContext())
                 {
-                    var account = db.UserAccounts.FirstOrDefault(a => a.FriendlyName == withdrawal.MyAccount);
+                    var account = db.UserAccounts.FirstOrDefault(a => a.FriendlyName==withdrawal.MyAccount &&
+                                                                      a.User.UserName==User.Identity.Name);
                     if (account == null)
                     {
                         return RedirectToAction("Error");
 
                     }
-
-                    var usr = db.User.FirstOrDefault(u => u.UserName == User.Identity.Name);
-                    if (usr.Id != account.UserId)
-                    {
-                        return RedirectToAction("Error");
-
-                    }
-
 
                     var transaction = new Transaction
                     {
@@ -271,24 +258,24 @@ namespace Bank.Controllers
             return View();
         }
 
-        public ActionResult AccountCheck()
+        
+        public ActionResult TransactionsCheck()
         {
-            return View();
-        }
-
-        [HttpPost]
-
-        public ActionResult AccountCheck(AccountCheck check)
-        {
-            if (ModelState.IsValid)
+            using (var db = new OurDbContext())
             {
-                using (var db = new OurDbContext())
+                var bankAccounts = db.UserAccounts.Where(a => a.User.UserName == User.Identity.Name).ToList();
+                foreach (var item in bankAccounts)
                 {
-                    var account = db.UserAccounts.FirstOrDefault(a => a.FriendlyName == check.MyBankAccount &&
-                                                                 a.User.UserName==User.Identity.Name);
-                    if (account == null)
-                        return RedirectToAction("Error");
+    
+                    var transactions = db.Transactions.Where(t => t.UserAccountId == item.Id)
+                                                              .Select(tr=>new TransactionCheck
+                                                              {
+                                                                  Comment = tr.Comment,
+                                                                  Date = tr.EvenDate
+                                                              }).ToList();
+                    return View(transactions);
                 }
+
             }
             return View();
         }

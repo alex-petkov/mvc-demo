@@ -66,7 +66,7 @@ namespace Bank.Controllers
         public ActionResult Login()
         {
             if (Request.IsAuthenticated)
-                return RedirectToAction("LoggedIn");
+                return RedirectToAction("Index","BankAccount");
 
             return View();
         }
@@ -75,7 +75,7 @@ namespace Bank.Controllers
         public ActionResult Login(UserAccount user)
         {
             if (Request.IsAuthenticated)
-                return RedirectToAction("LoggedIn");
+                return RedirectToAction("Index","BankAccount");
 
             using (var db = new OurDbContext())
             {
@@ -86,7 +86,7 @@ namespace Bank.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(user.UserName, false);
 
-                    return RedirectToAction("LoggedIn");
+                    return RedirectToAction("Index","BankAccount");
                 }
                 ModelState.AddModelError("", "Username or Password is wrong.");
             }

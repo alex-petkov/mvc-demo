@@ -70,6 +70,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -140,7 +141,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Library\PasswordUncode.cs" />
-    <Compile Include="Models\AccountCheck.cs" />
+    <Compile Include="Models\AccountCheckModel.cs" />
+    <Compile Include="Models\TransactionCheck.cs" />
     <Compile Include="Models\CreateBankAccount.cs" />
     <Compile Include="Models\DepositModel.cs" />
     <Compile Include="Models\ShowBankAccount.cs" />
@@ -195,7 +197,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\LoggedIn.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Views\Account\Index.cshtml" />
@@ -212,6 +213,7 @@
     <Content Include="Views\BankAccount\Transfer.cshtml" />
     <Content Include="Views\BankAccount\WithDrawAl.cshtml" />
     <Content Include="Views\BankAccount\Options.cshtml" />
+    <Content Include="Views\BankAccount\TransactionsCheck.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EBanking.Data\EBanking.Data.csproj">
